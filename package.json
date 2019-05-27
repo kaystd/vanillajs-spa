@@ -1,17 +1,24 @@
 {
   "name": "vanillajs-spa",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Single page application on Vanilla JavaScript",
-  "main": "src/main",
+  "main": "src/index.ts",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --config webpack.config.js"
+    "start": "webpack-dev-server --config webpack.config.js",
+    "lint": "tslint --config tslint.json 'src/**/*.ts'"
   },
   "keywords": [],
   "author": "",
   "devDependencies": {
+    "@types/node": "^12.0.2",
+    "@types/webpack-env": "^1.13.9",
+    "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^2.1.1",
+    "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.4.1"

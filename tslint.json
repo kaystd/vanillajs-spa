@@ -1,0 +1,11 @@
+{
+  "defaultSeverity": "error",
+  "extends": "tslint:recommended",
+  "rules": {
+    "typedef": [true, "call-signature", "arrow-call-signature", "parameter"],
+    "quotemark": [true, "single"],
+    "semicolon": [true, "never"],
+    "no-unused-expression": [true, "allow-fast-null-checks"],
+    "ordered-imports": false
+  }
+}
