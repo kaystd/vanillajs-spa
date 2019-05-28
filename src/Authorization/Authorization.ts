@@ -1,3 +1,3 @@
 export default (): string => `<div>
-    <h1>HUY</h1>
+    <h1>Sign In</h1>
 </div>`
