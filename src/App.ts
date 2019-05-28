@@ -1,7 +1,5 @@
-export default (): HTMLElement => {
-    const element = document.createElement('div')
+import Authorization from './Authorization/Authorization'
 
-    element.innerHTML = 'Hello, World!'
-
-    return element
+export default (): string => {
+    return Authorization()
 }
