@@ -6,6 +6,7 @@
     "quotemark": [true, "single"],
     "semicolon": [true, "never"],
     "no-unused-expression": [true, "allow-fast-null-checks"],
-    "ordered-imports": false
+    "ordered-imports": false,
+    "arrow-parens": false
   }
 }
