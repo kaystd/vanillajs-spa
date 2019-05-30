@@ -1,5 +1,6 @@
-import Authorization from './Authorization/Authorization'
+import Authorization from './Authorization'
+import Registration from './Registration'
 
 export default (): string => {
-    return Authorization()
+    return Registration()
 }
