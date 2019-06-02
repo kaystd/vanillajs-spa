@@ -6,6 +6,8 @@ $color-grey-link: #6E6E6E
 $color-button-primary: #4E42E4
 $color-button-secondary: #1E1EE4
 $color-title: #404040
+$color-red: #F54747
+$color-phone-prefix: #F9F9F9
 
 .form-group
   //max-width: 540px
@@ -32,15 +34,63 @@ $color-title: #404040
   line-height: 24px
   //display: flex
   //align-items: center
-  //color: #DBDBDB
+  color: $color-title
   padding: 8px 30px 8px 12px
   width: inherit
+
+.invalid-feedback
+  font-family: $font-stack
+  font-style: normal
+  font-weight: normal
+  font-size: 12px
+  line-height: 16px
+  display: flex
+  align-items: center
+  color: $color-red
+
+.hidden
+  display: none
 
 .right-offset
   margin-right: 20px
 
 .select
   -webkit-appearance: none
+
+.option
+  color: $color-title
+
+::placeholder
+  color: $color-grey-border
+
+.select-non-selected
+  color: $color-grey-border
+
+.phone
+  display: flex
+  flex-direction: row
+  align-items: center
+  border: none
+  padding: unset
+
+.phone-prefix
+  background: $color-phone-prefix
+  border: 1px solid $color-grey-border
+  border-right: none
+  box-sizing: border-box
+  border-radius: 4px 0 0 4px
+  font-family: $font-stack
+  font-style: normal
+  font-weight: normal
+  font-size: 14px
+  line-height: 24px
+  color: $color-title
+  padding: 8px 12px 8px 12px
+  height: 40px
+
+.phone-input
+  border-left: none
+  border-radius: 0 4px 4px 0
 
 .input-wrapper
   position: relative
@@ -52,9 +102,6 @@ $color-title: #404040
 
 .select-arrow
   pointer-events: none
-
-.option-disabled
-  display: none
 
 .form-label
   font-family: $font-stack
