@@ -7,6 +7,10 @@
     "semicolon": [true, "never"],
     "no-unused-expression": [true, "allow-fast-null-checks"],
     "ordered-imports": false,
-    "arrow-parens": false
+    "arrow-parens": false,
+    "interface-name": false,
+    "no-shadowed-variable": false,
+    "object-literal-sort-keys": false,
+    "curly": false
   }
 }
