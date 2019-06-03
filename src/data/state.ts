@@ -25,6 +25,7 @@ const state: State = {
         password: {
             value: '',
             validity: Validity.Init,
+            show: false,
         },
     },
     authState: {
