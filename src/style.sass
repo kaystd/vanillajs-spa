@@ -1,0 +1,226 @@
+$font-stack: Ubuntu
+$color-white: #FFFFFF
+$color-grey-border: #DBDBDB
+$color-grey-label: #AFAFAF
+$color-grey-link: #6E6E6E
+$color-button-primary: #4E42E4
+$color-button-secondary: #1E1EE4
+$color-button-light: #5957e4
+$color-title: #404040
+$color-red: #F54747
+$color-phone-prefix: #F9F9F9
+
+.form-group
+  height: 64px
+  margin-bottom: 32px
+  width: 100%
+
+.inline-form-group
+  display: flex
+  flex-direction: row
+  width: 100%
+  @media (max-width: 400px)
+    flex-direction: column
+
+.form-control
+  background: $color-white
+  border: 1px solid $color-grey-border
+  box-sizing: border-box
+  border-radius: 4px
+  height: 40px
+  font-family: $font-stack
+  font-style: normal
+  font-weight: normal
+  font-size: 14px
+  line-height: 24px
+  color: $color-title
+  padding: 8px 30px 8px 12px
+  width: inherit
+
+.invalid-feedback
+  font-family: $font-stack
+  font-style: normal
+  font-weight: normal
+  font-size: 12px
+  line-height: 16px
+  display: flex
+  align-items: center
+  color: $color-red
+  margin-top: 8px
+
+.hidden
+  display: none
+
+.right-offset
+  margin-right: 20px
+
+.select
+  -webkit-appearance: none
+
+.option
+  color: $color-title
+
+::placeholder
+  color: $color-grey-border
+
+.select-non-selected
+  color: $color-grey-border
+
+.phone
+  display: flex
+  flex-direction: row
+  align-items: center
+  border: none
+  padding: unset
+
+.phone-prefix
+  background: $color-phone-prefix
+  border: 1px solid $color-grey-border
+  border-right: none
+  box-sizing: border-box
+  border-radius: 4px 0 0 4px
+  font-family: $font-stack
+  font-style: normal
+  font-weight: normal
+  font-size: 14px
+  line-height: 24px
+  color: $color-title
+  padding: 8px 12px 8px 12px
+  height: 40px
+
+.phone-input
+  border-left: none
+  border-radius: 0 4px 4px 0
+
+.input-wrapper
+  position: relative
+
+.input-icon
+  top: 58%
+  right: 10px
+  position: absolute
+
+.eye
+  cursor: pointer
+
+.select-arrow
+  pointer-events: none
+
+.form-label
+  font-family: $font-stack
+  font-style: normal
+  font-weight: normal
+  font-size: 14px
+  line-height: 20px
+  display: flex
+  align-items: center
+  color: $color-grey-label
+  margin-bottom: 6px
+
+.form-button
+  background: $color-button-primary
+  color: $color-white
+  border-radius: 4px
+  padding: 8px 40px 8px 40px
+  user-select: none
+  font-family: $font-stack
+  font-style: normal
+  font-weight: 500
+  font-size: 14px
+  line-height: 24px
+  text-align: center
+  border: none
+  margin-bottom: 32px
+  @media (max-width: 400px)
+    width: 100%
+
+.form-button:hover
+  background: $color-button-secondary
+  cursor: pointer
+
+.form-button:active
+  background: $color-button-light
+
+.disabled
+  background: $color-grey-border
+  pointer-events: none
+
+.invalid-input
+  border-color: $color-red
+
+.title
+  font-family: $font-stack
+  font-style: normal
+  font-weight: 500
+  font-size: 32px
+  line-height: 40px
+  display: flex
+  align-items: flex-end
+  color: $color-title
+
+.form
+  display: flex
+  flex-direction: column
+  align-items: self-end
+  @media (max-width: 400px)
+    align-items: center
+
+p
+  font-family: $font-stack
+  font-style: normal
+  font-weight: normal
+  font-size: 14px
+  line-height: 24px
+  display: flex
+  align-items: center
+  text-align: right
+  color: $color-grey-label
+
+.router-button
+  font-family: $font-stack
+  font-style: normal
+  font-weight: 500
+  font-size: 14px
+  line-height: 24px
+  display: flex
+  align-items: center
+  text-align: center
+  color: $color-title
+  padding: 8px 12px 8px 12px
+  user-select: none
+
+.router-button:hover
+  color: $color-grey-link
+  cursor: pointer
+
+.header
+  display: flex
+  flex-direction: row
+  justify-content: flex-end
+  align-items: baseline
+  flex: 1
+  margin-right: 20%
+  @media (max-width: 400px)
+    margin-right: 0
+    align-items: center
+    flex-direction: column
+
+.content
+  display: flex
+  flex-direction: column
+  flex: 2
+  margin-left: auto
+  margin-right: auto
+  width: 100%
+  max-width: 540px
+
+.container
+  @media (max-width: 400px)
+    flex-direction: column-reverse
+  display: flex
+  flex-direction: column
+  @media (min-width: 400px)
+    height: -webkit-fill-available
+
+body
+  margin: 20px
