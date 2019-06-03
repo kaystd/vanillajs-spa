@@ -1,5 +1,6 @@
 import App from './components/App'
-import {PasswordState, State, Validity} from './data/interfaces'
+import { Route, State, Validity } from './data/interfaces'
+import {normalizePhone, validate} from './utils'
 import dataState from './data/state'
 
 let state = dataState
@@ -7,88 +8,95 @@ export const setState = (handler: (object: State) => State): void => {
     state = handler(state)
 }
 
-const mailValidate = (mail: string): boolean => {
-    const mailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
-    return mailRegex.test(mail)
-}
-
-const passwordValidate = (pass: string): boolean => {
-    const passRegex = /(?=.*[A-Z])(?=.*[0-9])(?=.{6,})/
-    return passRegex.test(pass)
-}
-
-const validate = (key: string, value: string): Validity => {
-    if (value.length === 0) return Validity.Required
-    switch (key) {
-        case 'email': return mailValidate(value) ? Validity.Valid : Validity.InvalidMail
-        case 'password': return passwordValidate(value) ? Validity.Valid : Validity.InvalidPassword
-        default: return Validity.Valid
-    }
-}
-
 export const update = (): void => {
-    console.log('NEXT_STATE', state)
     document.querySelector('#root').innerHTML = App(state)
 
-    const regInputs = document.querySelectorAll('.reg')
-    const authInputs = document.querySelectorAll('.auth')
+    const inputs = document.querySelectorAll('.form-control')
     const phoneInput = document.querySelector('.phone-input')
     const passwordEye = document.querySelector('.eye')
-    const routerButton = document.querySelectorAll('.router-button')
-    const submitButton = document.querySelectorAll('.submit-button')
+    const routerButton = document.querySelector('.router-button')
+    const submitButton = document.querySelector('.form-button')
 
-    regInputs.forEach(input => input.addEventListener('change', event => {
+    inputs && inputs.forEach(input => input.addEventListener('change', event => {
         const { value, attributes } = event.target as HTMLInputElement
-        const key = attributes.getNamedItem('aria-label').value
+        const stateKey = state.route === Route.Authorization ? 'authState' : 'regState'
+        const fieldKey = attributes.getNamedItem('aria-label').value
 
         setState((state: State) => ({
             ...state,
-            regState: {
-                ...state.regState,
-                [key]: {
-                    ...state.regState[key],
+            [stateKey]: {
+                ...state[stateKey],
+                [fieldKey]: {
+                    ...state[stateKey][fieldKey],
                     value,
-                    validity: validate(key, value),
-                },
-            },
-        }))
-        console.log('STATE', state)
-        update()
-    }))
-    authInputs.forEach(input => input.addEventListener('change', event => {
-        const { value, attributes } = event.target as HTMLInputElement
-        const key = attributes.getNamedItem('aria-label').value
-
-        setState((state: State) => ({
-            ...state,
-            authState: {
-                ...state.authState,
-                [key]: {
-                    value,
-                    validity: value.length === 0 ? Validity.Required : Validity.Valid,
+                    validity: stateKey === 'authState'
+                        ? value.length === 0 ? Validity.Required
+                        : Validity.Valid : validate(fieldKey, value),
                 },
             },
         }))
         update()
     }))
-    phoneInput.addEventListener('input', event => {
+
+    phoneInput && phoneInput.addEventListener('input', event => {
         const x = (event.target as HTMLInputElement).value.replace(/\D/g, '')
             .match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
         (event.target as HTMLInputElement).value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] +
             (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '')
     })
-    passwordEye.addEventListener('click', _ => {
+
+    passwordEye && passwordEye.addEventListener('click', () => {
+        const stateKey = state.route === Route.Authorization ? 'authState' : 'regState'
         setState((state: State) => ({
             ...state,
-            regState: {
-                ...state.regState,
+            [stateKey]: {
+                ...state[stateKey],
                 password: {
-                    ...state.regState.password,
-                    show: !state.regState.password.show,
+                    ...state[stateKey].password,
+                    show: !state[stateKey].password.show,
                 },
             },
         }))
         update()
+    })
+
+    routerButton && routerButton.addEventListener('click', () => {
+        setState((state: State) => ({
+            ...state,
+            route: state.route === Route.Authorization ? Route.Registration : Route.Authorization,
+        }))
+        update()
+    })
+
+    submitButton && submitButton.addEventListener('click', () => {
+        const { route, authState: { email: authEmail, password: authPassword }, regState:
+            { firstName, lastName, email, country, password } } = state
+        switch (route) {
+            case Route.Authorization: {
+                const submitState = {
+                    email: authEmail.value,
+                    password: authPassword.value,
+                }
+                return fetch('http://backend.io/auth', { method: 'POST', body: JSON.stringify(submitState) })
+                    .then(response => response.json())
+                    .then(json => console.log('RESPONSE', json),
+                        err => console.log('ERROR', err))
+            }
+            case Route.Registration: {
+                const submitSate = {
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                    email: email.value,
+                    country: country.value,
+                    phone: normalizePhone(state),
+                    password: password.value,
+                }
+                return fetch('http://backend.io/reg', { method: 'POST', body: JSON.stringify(submitSate) })
+                    .then(response => response.json())
+                    .then(json => console.log('RESPONSE', json),
+                        err => console.log('ERROR', err))
+            }
+        }
     })
 }
 

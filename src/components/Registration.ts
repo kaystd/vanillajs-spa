@@ -1,6 +1,6 @@
 import {ClosedEye, OpenedEye, SelectArrow} from '../SVGs'
 import { Country, State, Validity } from '../data/interfaces'
-import { checkInputValidity, getValidityFeedback } from '../utils'
+import { checkInputValidity, checkSubmit, getValidityFeedback } from '../utils'
 import '../style.sass'
 
 export default (state: State): string => {
@@ -53,22 +53,24 @@ export default (state: State): string => {
                     <div class="form-group">
                         <label class="form-label">Phone number</label>
                         <div class="phone form-control">
-                            <div class="phone-prefix">${getPhonePrefix()}</div>
-                            <input aria-label="phone" class="form-control reg phone-input" type="text"
-                                placeholder="(___)-___-__-__" ${checkInputValidity(phone.validity)}
+                            <div class="phone-prefix ${checkInputValidity(phone.validity)}">${getPhonePrefix()}</div>
+                            <input aria-label="phone" type="text" placeholder="(___)-___-__-__"
+                                class="form-control reg phone-input ${checkInputValidity(phone.validity)}"
                                 value="${phone.value}">
-                            <div class="invalid-feedback">${getValidityFeedback(phone.validity)}</div>
                         </div>
+                        <div class="invalid-feedback">${getValidityFeedback(phone.validity)}</div>
                     </div>
                 </div>
                 <div class="form-group input-wrapper">
                     <label class="form-label">Password</label>
-                    <input aria-label="password" class="form-control reg" type="${password.show ? 'text' : 'password'}"
-                        placeholder="Your password" ${checkInputValidity(password.validity)} value="${password.value}">
+                    <input aria-label="password" class="form-control reg ${checkInputValidity(password.validity)}"
+                        type="${password.show ? 'text' : 'password'}" placeholder="Your password"
+                        value="${password.value}">
                     <div class="invalid-feedback">${getValidityFeedback(password.validity)}</div>
                     <a class="input-icon eye">${password.show ? OpenedEye() : ClosedEye()}</a>
                 </div>
-                <a class="form-button reg-button">Continue</a>
+                <button type="button" ${checkSubmit(state) ? '' : 'disabled'}
+                    class="form-button ${checkSubmit(state) ? '' : 'disabled'}">Continue</button>
             </div>
         </div>
     </div>`

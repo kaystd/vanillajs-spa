@@ -1,6 +1,6 @@
 {
   "name": "vanillajs-spa",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Single page application on Vanilla JavaScript",
   "main": "src/index.ts",
   "scripts": {
@@ -9,7 +9,8 @@
     "lint": "tslint --config tslint.json 'src/**/*.ts'"
   },
   "keywords": [],
-  "author": "",
+  "author": "Danil Kaist",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^12.0.2",
     "@types/webpack-env": "^1.13.9",

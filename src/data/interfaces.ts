@@ -2,6 +2,7 @@ export interface State {
     regState: RegState,
     authState: AuthState,
     countries: Country[],
+    route: Route,
 }
 export interface RegState {
     firstName: FieldState,
@@ -14,7 +15,8 @@ export interface RegState {
 }
 export interface AuthState {
     email: FieldState,
-    password: FieldState,
+    password: PasswordState,
+    [key: string]: FieldState | PasswordState,
 }
 export interface Country {
     value: string,
@@ -35,4 +37,9 @@ export enum Validity {
     Required = 'REQUIRED',
     InvalidMail = 'INVALID_MAIL',
     InvalidPassword = 'INVALID_PASSWORD',
+    InvalidPhone = 'INVALID_PHONE',
+}
+export enum Route {
+    Registration = 'REGISTRATION',
+    Authorization = 'AUTHORIZATION',
 }

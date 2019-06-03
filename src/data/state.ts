@@ -1,4 +1,4 @@
-import { State, Validity } from './interfaces'
+import { State, Validity, Route } from './interfaces'
 
 const state: State = {
     regState: {
@@ -36,6 +36,7 @@ const state: State = {
         password: {
             value: '',
             validity: Validity.Init,
+            show: false,
         },
     },
     countries: [
@@ -100,6 +101,7 @@ const state: State = {
             phonePrefix: '+7',
         },
     ],
+    route: Route.Authorization,
 }
 
 export default state
