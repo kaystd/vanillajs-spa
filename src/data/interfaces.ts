@@ -9,7 +9,8 @@ export interface RegState {
     email: FieldState,
     country: FieldState,
     phone: FieldState,
-    password: FieldState,
+    password: PasswordState,
+    [key: string]: FieldState | PasswordState,
 }
 export interface AuthState {
     email: FieldState,
@@ -23,11 +24,15 @@ export interface FieldState {
     value: string
     validity: Validity
 }
+export interface PasswordState {
+    value: string,
+    validity: Validity,
+    show: boolean,
+}
 export enum Validity {
-    Init,
-    Valid,
-    Required,
-    InvalidPhone,
-    InvalidMail,
-    InvalidPassword,
+    Init = 'INIT',
+    Valid = 'VALID',
+    Required = 'REQUIRED',
+    InvalidMail = 'INVALID_MAIL',
+    InvalidPassword = 'INVALID_PASSWORD',
 }

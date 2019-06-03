@@ -1,6 +1,7 @@
-import {ClosedEye, SelectArrow} from '../SVGs'
-import '../Authorization/style.sass'
+import {ClosedEye, OpenedEye, SelectArrow} from '../SVGs'
 import { Country, State, Validity } from '../data/interfaces'
+import { checkInputValidity, getValidityFeedback } from '../utils'
+import '../style.sass'
 
 export default (state: State): string => {
     const { regState: { firstName, lastName, country, phone, email, password }, countries } = state
@@ -13,7 +14,7 @@ export default (state: State): string => {
     return `<div class="container">
         <div class="header">
             <p>Already have an account?</p>
-            <a class="sign-up-button">Sign In</a>
+            <a class="router-button">Sign In</a>
         </div>
         <div class="content">
             <div class="form">
@@ -21,22 +22,22 @@ export default (state: State): string => {
                 <div class="inline-form-group">
                     <div class="form-group right-offset">
                         <label class="form-label">First name</label>
-                        <input aria-label="firstName" class="form-control reg" type="text" placeholder="Your first name"
-                            value="${firstName.value}">
-                        <div class="invalid-feedback ${firstName.validity === Validity.Required ? 'hidden' : ''}">
-                            Required
-                        </div>
+                        <input aria-label="firstName" class="form-control reg ${checkInputValidity(firstName.validity)}"
+                            type="text" placeholder="Your first name" value="${firstName.value}">
+                        <div class="invalid-feedback">${getValidityFeedback(firstName.validity)}</div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Last name</label>
-                        <input aria-label="lastName" class="form-control reg" type="text" placeholder="Your last name"
-                            value="${lastName.value}">
+                        <input aria-label="lastName" class="form-control reg ${checkInputValidity(lastName.validity)}"
+                            type="text" placeholder="Your last name" value="${lastName.value}">
+                        <div class="invalid-feedback">${getValidityFeedback(lastName.validity)}</div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Email</label>
-                    <input aria-label="email" class="form-control reg" type="email" placeholder="Your email address"
-                        value="${email.value}">
+                    <input aria-label="email" class="form-control reg ${checkInputValidity(email.validity)}"
+                        type="email" placeholder="Your email address" value="${email.value}">
+                    <div class="invalid-feedback">${getValidityFeedback(email.validity)}</div>
                 </div>
                 <div class="inline-form-group">
                     <div class="form-group right-offset input-wrapper">
@@ -54,17 +55,20 @@ export default (state: State): string => {
                         <div class="phone form-control">
                             <div class="phone-prefix">${getPhonePrefix()}</div>
                             <input aria-label="phone" class="form-control reg phone-input" type="text"
-                                placeholder="(___)-___-__-__" value="${phone.value}">
+                                placeholder="(___)-___-__-__" ${checkInputValidity(phone.validity)}
+                                value="${phone.value}">
+                            <div class="invalid-feedback">${getValidityFeedback(phone.validity)}</div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group input-wrapper">
                     <label class="form-label">Password</label>
-                    <input aria-label="password" class="form-control reg" type="password" placeholder="Your password"
-                        value="${password.value}">
-                    <a class="input-icon">${ClosedEye()}</a>
+                    <input aria-label="password" class="form-control reg" type="${password.show ? 'text' : 'password'}"
+                        placeholder="Your password" ${checkInputValidity(password.validity)} value="${password.value}">
+                    <div class="invalid-feedback">${getValidityFeedback(password.validity)}</div>
+                    <a class="input-icon eye">${password.show ? OpenedEye() : ClosedEye()}</a>
                 </div>
-                <a class="form-button">Continue</a>
+                <a class="form-button reg-button">Continue</a>
             </div>
         </div>
     </div>`
