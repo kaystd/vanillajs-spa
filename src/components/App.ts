@@ -1,7 +1,11 @@
 import Authorization from './Authorization'
 import Registration from './Registration'
-import { State } from '../data/interfaces'
+import { Route, State } from '../data/interfaces'
 
 export default (state: State): string => {
-    return Registration(state)
+    switch (state.route) {
+        case Route.Authorization: return Authorization(state)
+        case Route.Registration: return Registration(state)
+        default: return ''
+    }
 }

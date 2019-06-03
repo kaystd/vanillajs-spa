@@ -1,6 +1,7 @@
-import '../style.sass'
 import { State } from '../data/interfaces'
-import { checkInputValidity, getValidityFeedback } from '../utils'
+import {checkInputValidity, checkSubmit, getValidityFeedback} from '../utils'
+import { ClosedEye, OpenedEye } from '../SVGs'
+import '../style.sass'
 
 export default (state: State): string => {
     const { authState: { email, password } } = state
@@ -15,17 +16,20 @@ export default (state: State): string => {
                 <h1 class="title">Sign In</h1>
                 <div class="form-group">
                     <label class="form-label">Email</label>
-                    <input class="form-control ${checkInputValidity(email.validity)}" type="email"
-                        placeholder="Your email address" value="${email.value}">
+                    <input aria-label="email" class="form-control auth ${checkInputValidity(email.validity)}"
+                        type="email" placeholder="Your email address" value="${email.value}">
                     <div class="invalid-feedback">${getValidityFeedback(email.validity)}</div>
                 </div>
-                <div class="form-group">
+                <div class="form-group input-wrapper">
                     <label class="form-label">Password</label>
-                    <input class="form-control ${checkInputValidity(password.validity)}" type="password"
-                        placeholder="Your password" value="${password.value}">
+                    <input aria-label="password" class="form-control auth ${checkInputValidity(password.validity)}"
+                        type="${password.show ? 'text' : 'password'}" placeholder="Your password"
+                        value="${password.value}">
                     <div class="invalid-feedback">${getValidityFeedback(password.validity)}</div>
+                    <a class="input-icon eye">${password.show ? OpenedEye() : ClosedEye()}</a>
                 </div>
-                <a class="form-button">Sign In</a>
+                <button type="button" ${checkSubmit(state) ? '' : 'disabled'}
+                    class="form-button ${checkSubmit(state) ? '' : 'disabled'}">Sign In</button>
             </div>
         </div>
     </div>`

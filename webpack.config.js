@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
-    entry: './src/Authorization.ts',
+    entry: './src/index.ts',
     module: {
         rules: [
             {
